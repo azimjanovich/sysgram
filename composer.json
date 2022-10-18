@@ -1,0 +1,30 @@
+{
+    "name": "sysgram/sysgram",
+    "description": "SysGram - System PHP telegram bot",
+    "type": "framework",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "President-Tuychiyev",
+            "email": "j.a.tuychiyev@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php" : ">=8.0",
+        "cartalyst/sentry": "2.0.*@dev",
+        "usmanhalalit/pixie": "2.*@dev",
+        "vlucas/phpdotenv": "5.4.x-dev"
+    },
+    "autoload": {
+        "psr-4": {
+            "Sysgram\\": "app/"
+        }
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url":  "https://github.com/sysgram/sysgram"
+        }
+    ]
+}
