@@ -6,7 +6,7 @@
 [![Minimum PHP Version](https://img.shields.io/static/v1?label=packagist&message=v1.1&color=blueviolet)](https://packagist.org/packages/sysgram/sysgram)
 [![Minimum PHP Version](https://img.shields.io/static/v1?label=downloads&message=...&color=success)](https://packagist.org/packages/sysgram/sysgram)
 [![Minimum PHP Version](https://img.shields.io/static/v1?label=PHP&message=>=8.0&color=blue)](https://php.net/)
-[![License](https://img.shields.io/packagist/l/php-telegram-bot/laravel.svg)](https://github.com/sysgram/sysgram/LICENSE.md)
+[![License](https://img.shields.io/packagist/l/php-telegram-bot/laravel.svg)](https://github.com/azimjanovich/sysgram/LICENSE.md)
 
 <!-- info  -->
 This package makes it easy to work with the Telegram Bot api.
@@ -33,7 +33,7 @@ Before creating your first Laravel project, you should ensure that your local ma
 
 After you have installed PHP and Composer, you may create a new Sysgram project via the Composer `create-project` command:
 
-    composer create-project sysgram/sysgram example-bot
+    composer create-project azimjanovich/sysgram example-bot
 
 Or you'll need to modify the composer.json file in your project as follows:
 ```json
@@ -41,7 +41,7 @@ Or you'll need to modify the composer.json file in your project as follows:
     "name": "yourproject/yourproject",
     "type": "project",
     "require": {
-        "sysgram/sysgram": "^1.1"
+        "azimjanovich/sysgram": "^1.3"
     }
 }
 ```
@@ -49,7 +49,7 @@ And run composer update
 
 Or run the following command at the command line:
 
-    composer require sysgram/sysgram
+    composer require azimjanovich/sysgram
 
 ## Environment Based Configuration
 In the config you have to specify Telegram API KEY
@@ -88,7 +88,7 @@ You can control bot functionality through the `app\Controller\Controller.php` fi
 
 Or you can enter the following command by running `cmd.sh` and create a new controller file
 
-    php cmd.sh
+    php artisan
 
 Command to create a controller
 
