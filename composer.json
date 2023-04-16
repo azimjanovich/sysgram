@@ -9,7 +9,6 @@
             "email": "j.a.tuychiyev@gmail.com"
         }
     ],
-    "minimum-stability": "dev",
     "require": {
         "php": ">=8.0",
         "cartalyst/sentry": "2.0.*@dev",
@@ -20,5 +19,11 @@
         "psr-4": {
             "Sysgram\\": "app/"
         }
-    }
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/azimjanovich/sysgram"
+        }
+    ]
 }
