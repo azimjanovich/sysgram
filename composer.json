@@ -20,11 +20,5 @@
         "psr-4": {
             "Sysgram\\": "app/"
         }
-    },
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/azimjanovich/sysgram"
-        }
-    ]
+    }
 }
