@@ -12,7 +12,7 @@
     "minimum-stability": "dev",
     "require": {
         "php": ">=8.0",
-        "azimjanovich/sysgram": "^1.4",
+        "azimjanovich/sysgram": "^1.5",
         "cartalyst/sentry": "2.0.*@dev",
         "usmanhalalit/pixie": "2.*@dev",
         "vlucas/phpdotenv": "5.4.x-dev"
