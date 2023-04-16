@@ -11,7 +11,7 @@
     ],
     "minimum-stability": "dev",
     "require": {
-        "php": ">=8.0",
+        "php": ">=8.1",
         "azimjanovich/sysgram": "^1.5",
         "cartalyst/sentry": "2.0.*@dev",
         "usmanhalalit/pixie": "2.*@dev",
