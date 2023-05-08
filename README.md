@@ -1,10 +1,10 @@
 # SysGram - System Telegram Bot Package
-[![Typing SVG](https://readme-typing-svg.herokuapp.com?font=Cantora+One&color=ADBAC7&center=true&vCenter=true&lines=High+security+system;Easy%2C+convenient+and+understandable)](https://t.me/DGUuz/129)
+[![Typing SVG](https://readme-typing-svg.herokuapp.com?font=Cantora+One&color=ADBAC7&center=true&vCenter=true&lines=High+security+system;Easy%2C+convenient+and+understandable)](https://t.me/technolang/129)
 
 <!-- badges -->
 [![Build Status](https://img.shields.io/static/v1?label=helper&message=Telegram&color=informational)](https://t.me/Azimjanovich)
-[![Minimum PHP Version](https://img.shields.io/static/v1?label=packagist&message=v1.1&color=blueviolet)](https://packagist.org/packages/sysgram/sysgram)
-[![Minimum PHP Version](https://img.shields.io/static/v1?label=downloads&message=...&color=success)](https://packagist.org/packages/sysgram/sysgram)
+[![Minimum PHP Version](https://img.shields.io/static/v1?label=packagist&message=v1.1&color=blueviolet)](https://packagist.org/packages/azimjanovich/sysgram)
+[![Minimum PHP Version](https://img.shields.io/static/v1?label=downloads&message=...&color=success)](https://packagist.org/packages/azimjanovich/sysgram)
 [![Minimum PHP Version](https://img.shields.io/static/v1?label=PHP&message=>=8.0&color=blue)](https://php.net/)
 [![License](https://img.shields.io/packagist/l/php-telegram-bot/laravel.svg)](https://github.com/azimjanovich/sysgram/LICENSE.md)
 
@@ -122,7 +122,7 @@ write more tests
 ## **Troubleshooting**
 
 If you like living on the edge, please report any bugs you find on the
-[sysgram/sysgram issues](https://github.com/sysgram/sysgram/issues) page.
+[azimjanovich/sysgram issues](https://github.com/azimjanovich/sysgram/issues) page.
 
 ## **Contributing**
 
