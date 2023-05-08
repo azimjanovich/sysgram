@@ -1,5 +1,5 @@
 {
-    "name": "sysgram/sysgram",
+    "name": "azimjanovich/sysgram",
     "description": "SysGram - System PHP telegram bot",
     "type": "framework",
     "license": "MIT",
@@ -15,7 +15,9 @@
         "azimjanovich/sysgram": "^1.5",
         "cartalyst/sentry": "2.0.*@dev",
         "usmanhalalit/pixie": "2.*@dev",
-        "vlucas/phpdotenv": "5.4.x-dev"
+        "vlucas/phpdotenv": "5.4.x-dev",
+        "nesbot/carbon": "^2.64.0",
+        "guzzlehttp/guzzle": ">=7.2.5,<8.3"
     },
     "autoload": {
         "psr-4": {
