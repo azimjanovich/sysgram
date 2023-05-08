@@ -17,8 +17,8 @@
  */
 
 
- /**
-  * 
+/**
+ * 
  * @link https://core.telegram.org/bots/api                 Documentation for the function.
  * @see https://github.com/azimjanovich/sysgram/README.md        You can get the full guide to using the index from
  * 
@@ -33,31 +33,26 @@ use Exception;
 class Hook
 {
 
-    public static function bot($method, $data = [])
+    public static function bot($method, $data = [], $token = null)
     {
 
         try {
-
-            $url = "https://api.Telegram.org/bot" . Env::get("TOKEN") . "/" . $method;
+            $url = "https://api.Telegram.org/bot" . is_null($token) ? Env::get("TOKEN") : $token . "/" . $method;
             $ch = curl_init();
             curl_setopt($ch, CURLOPT_URL, $url);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
             $res = curl_exec($ch);
-            if (curl_error($ch)):
+            if (curl_error($ch)) :
                 Handler::log(curl_error($ch));
                 return curl_error($ch);
-            else:
+            else :
                 return json_decode($res);
             endif;
-
         } catch (Exception $e) {
 
             Handler::log($e);
             return "Error: " . $e;
-
         }
-
     }
-
 }

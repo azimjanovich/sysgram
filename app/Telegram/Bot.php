@@ -17,8 +17,8 @@
  */
 
 
- /**
-  * 
+/**
+ * 
  * @link https://core.telegram.org/bots/api                 Documentation for the function.
  * @see https://github.com/azimjanovich/sysgram/README.md        You can get the full guide to using the index from
  * @see  https://github.com/azimjanovich/sysgram/README.md       You can get the full guide to using the index from
@@ -49,5 +49,4 @@ class Bot
     use Payments;
     use TelegramPassport;
     use Games;
-
 }

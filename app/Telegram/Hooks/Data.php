@@ -59,42 +59,80 @@
  * Set hook telegram bot
  *
  */
-$update = json_decode(file_get_contents('php://input'));
-$message = $update->callback_query ? $update->callback_query : $update->message;
-$text = mb_convert_encoding($message->text, 'UTF-8', 'auto');
-$data = mb_convert_encoding($message->data, 'UTF-8', 'auto');
 
-/**
- *
- * All message data
- *
- */
-$message_id = $message->message_id;
-$chat_id = $message->chat->id;
-$audio = $message->audio;
-$voice = $message->voice;
-$video = $message->video;
-$photo = $message->photo;
-$document = $message->document;
-$forward_from = $message->forward_from;
-$forward_from_chat = $message->forward_from_chat;
+namespace Sysgram\Telegram\Hooks;
 
-/**
- *
- * All callback data
- *
- */
-$callback_query = $update->callback_query;
-$callback_chat_id = $callback_query->message->chat->id;
-$callback_message_id = $callback_query->message->message_id;
+class Data
+{
 
-/**
- *
- * All User data
- *
- */
-$frist_name = $message->from->first_name;
-$last_name = $message->from->last_name;
-$full_name = $frist_name . " " . $last_name;
-$username = $message->from->username;
-$phone_number = $message->contact->phone_number;
+    public object $update;
+    public object $message;
+    public string $text;
+    public string $data;
+
+    /**
+     *
+     * All message data
+     *
+     */
+    public int $message_id;
+    public int $chat_id;
+    public $audio;
+    public $voice;
+    public $video;
+    public $photo;
+    public $document;
+    public $forward_from;
+    public $forward_from_chat;
+
+    /**
+     *
+     * All callback data
+     *
+     */
+    public int $callback_query;
+    public int $callback_chat_id;
+    public int $callback_message_id;
+
+
+    /**
+     *
+     * All User data
+     *
+     */
+    public $frist_name;
+    public $last_name;
+    public $full_name;
+    public $username;
+    public $phone_number;
+
+
+    public function __construct()
+    {
+        $this->update =  json_decode(file_get_contents('php://input'));
+        $this->message =  $this->update->callback_query ? $this->update->callback_query : $this->update->message;
+
+        $this->text = mb_convert_encoding($this->message->text, 'UTF-8', 'auto');
+        $this->data = mb_convert_encoding($this->message->data, 'UTF-8', 'auto');
+
+        $this->message_id =  $this->message->message_id;
+        $this->chat_id = $this->message->chat->id;
+        $this->audio = $this->message->audio;
+        $this->voice = $this->message->voice;
+        $this->video = $this->message->video;
+        $this->photo = $this->message->photo;
+        $this->document = $this->message->document;
+        $this->forward_from = $$this->message->forward_from;
+        $this->forward_from_chat = $this->message->forward_from_chat;
+
+        $this->callback_query = $this->update->callback_query;
+        $this->callback_chat_id = $this->callback_query->message->chat->id;
+        $this->callback_message_id = $this->callback_query->message->message_id;
+
+        $this->frist_name = $this->message->from->first_name;
+        $this->last_name = $this->message->from->last_name;
+        $this->full_name = $this->frist_name . " " . $this->last_name;
+        $this->username = $this->message->from->username;
+        $this->phone_number = $this->message->contact->phone_number;
+    }
+}
