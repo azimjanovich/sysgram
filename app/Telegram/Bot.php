@@ -21,32 +21,40 @@
  * 
  * @link https://core.telegram.org/bots/api                 Documentation for the function.
  * @see https://github.com/azimjanovich/sysgram/README.md        You can get the full guide to using the index from
- * @see  https://github.com/azimjanovich/sysgram/README.md       You can get the full guide to using the index from
  * 
  */
 
-namespace Sysgram\Telegram;
+namespace App\Telegram;
 
-use Sysgram\Telegram\Api\GettingUpdates;
-use Sysgram\Telegram\Api\AvailableTypes;
-use Sysgram\Telegram\Api\AvailableMethods;
-use Sysgram\Telegram\Api\UpdatingMessages;
-use Sysgram\Telegram\Api\Sticker;
-use Sysgram\Telegram\Api\InlineMode;
-use Sysgram\Telegram\Api\Payments;
-use Sysgram\Telegram\Api\TelegramPassport;
-use Sysgram\Telegram\Api\Games;
+error_reporting(E_ALL ^ E_DEPRECATED);
+
+use App\Telegram\Api\AvailableMethods;
+use App\Telegram\Api\InlineMode;
+use App\Telegram\Api\UpdatingMessages;
 
 class Bot
 {
-
-    use GettingUpdates;
-    use AvailableTypes;
     use AvailableMethods;
-    use UpdatingMessages;
-    use Sticker;
     use InlineMode;
-    use Payments;
-    use TelegramPassport;
-    use Games;
+    use UpdatingMessages;
+
+    private const BASE_BOT_URL = "https://api.telegram.org/bot";
+    private $token;
+
+    public function __construct($token = null)
+    {
+        $this->token = (is_null($token) ? env('TOKEN') : $token);
+    }
+
+    public function bot($method = null, $data = [])
+    {
+        $ci = curl_init();
+        curl_setopt_array($ci, [
+            CURLOPT_URL => trim((env('BASE_BOT_URL') ?? $this::BASE_BOT_URL), '/') . $this->token . '/' . $method,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_POSTFIELDS => $data
+        ]);
+        $response = curl_exec($ci);
+        return $response;
+    }
 }

@@ -23,126 +23,261 @@
  *
  */
 
-namespace Sysgram\Telegram\Api;
+namespace App\Telegram\Api;
 
 use CURLFile;
-use Sysgram\Telegram\Hooks\Hook;
-use Sysgram\Utility\Env;
 
 trait AvailableMethods
 {
-
-    public static function sendMessage($chat_id, $text, $parse_mode = null, bool $disable_web_page_preview = null, $reply_to_message_id = null, $reply_markup = null)
+    public function sendMessage($chat_id, $text, string $parse_mode = null, bool $disable_web_page_preview = null, $reply_to_message_id = null, $reply_markup = null)
     {
-        is_null($parse_mode) ? $parse_mode = Env::get('MESSAGE_PARSE_MODE') : $parse_mode;
-        is_null($disable_web_page_preview) ? $disable_web_page_preview = Env::get('DISABLE_WEB_PAGE_PREVIEW') : $disable_web_page_preview;
-
-        return Hook::bot('sendmessage', ['chat_id' => $chat_id, 'text' => $text, 'parse_mode' => $parse_mode, 'disable_web_page_preview' => $disable_web_page_preview, 'reply_to_message_id' => $reply_to_message_id, 'reply_markup' => $reply_markup]);
+        $message = [
+            'chat_id' => $chat_id,
+            'text' => $text,
+            'parse_mode' => is_null($parse_mode) ? env('PARSE_MODE') ?? 'html' : $parse_mode,
+            'disable_web_page_preview' => is_null($disable_web_page_preview) ? env('DISABLE_WEB_PAGE_PREVIEW') ?? 'html' : $disable_web_page_preview,
+            'reply_to_message_id' => $reply_to_message_id,
+            'reply_markup' => $reply_markup
+        ];
+        return $this->bot('sendMessage', $message);
     }
 
-    public static function forwardMessage($chat_id, $from_chat_id, $message_id)
+    public function forwardMessage($chat_id, $from_chat_id, $message_id)
     {
-        return Hook::bot('forwardMessage', ['chat_id' => $chat_id, 'from_chat_id' => $from_chat_id, 'message_id' => $message_id]);
+        $message = [
+            'chat_id' => $chat_id,
+            'from_chat_id' => $from_chat_id,
+            'message_id' => $message_id
+        ];
+        return $this->bot('forwardMessage', $message);
     }
 
-    public static function copyMessage($chat_id, $from_chat_id, $message_id)
+    public function copyMessage($chat_id, $from_chat_id, $message_id)
     {
-        return Hook::bot('copyMessage', ['chat_id' => $chat_id, 'from_chat_id' => $from_chat_id, 'message_id' => $message_id]);
+        $message = [
+            'chat_id' => $chat_id,
+            'from_chat_id' => $from_chat_id,
+            'message_id' => $message_id
+        ];
+        return $this->bot('copyMessage', $message);
     }
 
-    public static function sendPhoto($chat_id, $photo, $caption = null, $parse_mode = null, $reply_markup = null, $reply_to_message_id = null)
+    public function sendPhoto($chat_id, $photo, $caption = null, $parse_mode = null, $reply_markup = null, $reply_to_message_id = null)
     {
-        is_null($parse_mode) ? $parse_mode = Env::get('MESSAGE_PARSE_MODE') : $parse_mode;
-
-        return Hook::bot('sendPhoto', ['chat_id' => $chat_id, 'photo' => $photo, 'caption' => $caption, 'parse_mode' => $parse_mode, 'reply_to_message_id' => $reply_to_message_id, 'reply_markup' => $reply_markup]);
+        $message = [
+            'chat_id' => $chat_id,
+            'photo' => $photo,
+            'caption' => $caption,
+            'parse_mode' => is_null($parse_mode) ? env('PARSE_MODE') ?? 'html' : $parse_mode,
+            'reply_to_message_id' => $reply_to_message_id,
+            'reply_markup' => $reply_markup
+        ];
+        return $this->bot('sendPhoto', $message);
     }
 
-    public static function sendAudio($chat_id, $audio, $caption = null, $parse_mode = null, $duration = null, $title = null, $performer = null, $reply_markup = null, $reply_to_message_id = null)
+    public function sendAudio($chat_id, $audio, $caption = null, $parse_mode = null, $duration = null, $title = null, $performer = null, $reply_markup = null, $reply_to_message_id = null)
     {
-        is_null($parse_mode) ? $parse_mode = Env::get('MESSAGE_PARSE_MODE') : $parse_mode;
-
-        return Hook::bot('sendAudio', ['chat_id' => $chat_id, 'audio' => $audio, 'caption' => $caption, 'parse_mode' => $parse_mode, 'duration' => $duration, 'title' => $title, 'performer' => $performer, 'reply_to_message_id' => $reply_to_message_id, 'reply_markup' => $reply_markup]);
+        $message = [
+            'chat_id' => $chat_id,
+            'audio' => $audio,
+            'caption' => $caption,
+            'duration' => $duration,
+            'title' => $title,
+            'performer' => $performer,
+            'parse_mode' => is_null($parse_mode) ? env('PARSE_MODE') ?? 'html' : $parse_mode,
+            'reply_to_message_id' => $reply_to_message_id,
+            'reply_markup' => $reply_markup
+        ];
+        return $this->bot('sendAudio', $message);
     }
 
-    public static function sendDocument($chat_id, $document, $caption = null, $parse_mode = null, $reply_markup = null, $reply_to_message_id = null)
+    public function sendDocument($chat_id, $document, $caption = null, $parse_mode = null, $reply_markup = null, $reply_to_message_id = null)
     {
-        is_null($parse_mode) ? $parse_mode = Env::get('MESSAGE_PARSE_MODE') : $parse_mode;
-
-        return Hook::bot('sendDocument', ['chat_id' => $chat_id, 'document' => $document, 'caption' => $caption, 'parse_mode' => $parse_mode, 'reply_to_message_id' => $reply_to_message_id, 'reply_markup' => $reply_markup]);
+        $message = [
+            'chat_id' => $chat_id,
+            'document' => $document,
+            'caption' => $caption,
+            'parse_mode' => is_null($parse_mode) ? env('PARSE_MODE') ?? 'html' : $parse_mode,
+            'reply_to_message_id' => $reply_to_message_id,
+            'reply_markup' => $reply_markup
+        ];
+        return $this->bot('sendDocument', $message);
     }
 
-    public static function sendDocumentServer($chat_id, $document, $caption = null, $parse_mode = null, $reply_markup = null, $reply_to_message_id = null)
+    public function sendDocumentServer($chat_id, $document, $caption = null, $parse_mode = null, $reply_markup = null, $reply_to_message_id = null)
     {
-        is_null($parse_mode) ? $parse_mode = Env::get('MESSAGE_PARSE_MODE') : $parse_mode;
-
-        return Hook::bot('sendDocument', ['chat_id' => $chat_id, 'document' => new CURLFile($document), 'caption' => $caption, 'parse_mode' => $parse_mode, 'reply_to_message_id' => $reply_to_message_id, 'reply_markup' => $reply_markup]);
+        $message = [
+            'chat_id' => $chat_id,
+            'document' => new CURLFile($document),
+            'caption' => $caption,
+            'parse_mode' => is_null($parse_mode) ? env('PARSE_MODE') ?? 'html' : $parse_mode,
+            'reply_to_message_id' => $reply_to_message_id,
+            'reply_markup' => $reply_markup
+        ];
+        return $this->bot('sendDocument', $message);
     }
 
-    public static function sendVideo($chat_id, $video, $caption = null, $duration = null, $parse_mode = null, $reply_markup = null, $reply_to_message_id = null)
+    public function sendVideo($chat_id, $video, $caption = null, $duration = null, $parse_mode = null, $reply_markup = null, $reply_to_message_id = null)
     {
-        is_null($parse_mode) ? $parse_mode = Env::get('MESSAGE_PARSE_MODE') : $parse_mode;
-
-        return Hook::bot('sendVideo', ['chat_id' => $chat_id, 'video' => $video, 'caption' => $caption, 'duration' => $duration, 'parse_mode' => $parse_mode, 'reply_to_message_id' => $reply_to_message_id, 'reply_markup' => $reply_markup]);
+        $message = [
+            'chat_id' => $chat_id,
+            'video' => $video,
+            'caption' => $caption,
+            'duration' => $duration,
+            'parse_mode' => is_null($parse_mode) ? env('PARSE_MODE') ?? 'html' : $parse_mode,
+            'reply_to_message_id' => $reply_to_message_id,
+            'reply_markup' => $reply_markup
+        ];
+        return $this->bot('sendVideo', $message);
     }
 
-    public static function sendAnimation($chat_id, $animation, $caption = null, $parse_mode = null, $reply_markup = null, $reply_to_message_id = null)
+    public function sendAnimation($chat_id, $animation, $caption = null, $parse_mode = null, $reply_markup = null, $reply_to_message_id = null)
     {
-        is_null($parse_mode) ? $parse_mode = Env::get('MESSAGE_PARSE_MODE') : $parse_mode;
-
-        return Hook::bot('sendAnimation', ['chat_id' => $chat_id, 'animation' => $animation, 'caption' => $caption, 'parse_mode' => $parse_mode, 'reply_to_message_id' => $reply_to_message_id, 'reply_markup' => $reply_markup]);
+        $message = [
+            'chat_id' => $chat_id,
+            'animation' => $animation,
+            'caption' => $caption,
+            'parse_mode' => is_null($parse_mode) ? env('PARSE_MODE') ?? 'html' : $parse_mode,
+            'reply_to_message_id' => $reply_to_message_id,
+            'reply_markup' => $reply_markup
+        ];
+        return $this->bot('sendAnimation', $message);
     }
 
-    public static function sendVoice($chat_id, $voice, $caption, $duration = null, $parse_mode = null, $reply_markup = null, $reply_to_message_id = null)
+    public function sendVoice($chat_id, $voice, $caption, $duration = null, $parse_mode = null, $reply_markup = null, $reply_to_message_id = null)
     {
-        is_null($parse_mode) ? $parse_mode = Env::get('MESSAGE_PARSE_MODE') : $parse_mode;
-
-        return Hook::bot('sendVoice', ['chat_id' => $chat_id, 'voice' => $voice, 'caption' => $caption, 'duration' => $duration, 'parse_mode' => $parse_mode, 'reply_to_message_id' => $reply_to_message_id, 'reply_markup' => $reply_markup]);
+        $message = [
+            'chat_id' => $chat_id,
+            'voice' => $voice,
+            'caption' => $caption,
+            'parse_mode' => is_null($parse_mode) ? env('PARSE_MODE') ?? 'html' : $parse_mode,
+            'reply_to_message_id' => $reply_to_message_id,
+            'reply_markup' => $reply_markup
+        ];
+        return $this->bot('sendVoice', $message);
     }
 
-    public static function sendVideoNote($chat_id, $video_note, $caption = null, $duration = null, $length = null, $parse_mode = null, $reply_markup = null, $reply_to_message_id = null)
+    public function sendVideoNote($chat_id, $video_note, $caption = null, $duration = null, $length = null, $parse_mode = null, $reply_markup = null, $reply_to_message_id = null)
     {
-        is_null($parse_mode) ? $parse_mode = Env::get('MESSAGE_PARSE_MODE') : $parse_mode;
-
-        return Hook::bot('sendVideoNote', ['chat_id' => $chat_id, 'video_note' => $video_note, 'caption' => $caption, 'duration' => $duration, 'length' => $length, 'parse_mode' => $parse_mode, 'reply_to_message_id' => $reply_to_message_id, 'reply_markup' => $reply_markup]);
+        $message = [
+            'chat_id' => $chat_id,
+            'video_note' => $video_note,
+            'caption' => $caption,
+            'duration' => $duration,
+            'length' => $length,
+            'parse_mode' => is_null($parse_mode) ? env('PARSE_MODE') ?? 'html' : $parse_mode,
+            'reply_to_message_id' => $reply_to_message_id,
+            'reply_markup' => $reply_markup
+        ];
+        return $this->bot('sendVideoNote', $message);
     }
 
-    public static function sendMediaGroup($chat_id, $media, $reply_to_message_id = null)
+    public function sendMediaGroup($chat_id, $media, $reply_to_message_id = null)
     {
-        return Hook::bot('sendMediaGroup', ['chat_id' => $chat_id, 'media' => $media, 'reply_to_message_id' => $reply_to_message_id]);
+        $message = [
+            'chat_id' => $chat_id,
+            'media' => $media,
+            'reply_to_message_id' => $reply_to_message_id,
+        ];
+        return $this->bot('sendMediaGroup', $message);
     }
 
-    public static function sendLocation($chat_id, $latitude, $longitude, $horizontal_accuracy, $live_period = null, $heading = null, $proximity_alert_radius = null, $reply_markup = null, $reply_to_message_id = null)
+    public function sendLocation($chat_id, $latitude, $longitude, $horizontal_accuracy, $live_period = null, $heading = null, $proximity_alert_radius = null, $reply_markup = null, $reply_to_message_id = null)
     {
-        return Hook::bot('sendLocation', ['chat_id' => $chat_id, 'latitude' => $latitude, 'longitude' => $longitude, 'horizontal_accuracy' => $horizontal_accuracy, 'live_period' => $live_period, 'heading' => $heading, 'proximity_alert_radius' => $proximity_alert_radius, 'reply_to_message_id' => $reply_to_message_id, 'reply_markup' => $reply_markup]);
+        $message = [
+            'chat_id' => $chat_id,
+            'latitude' => $latitude,
+            'longitude' => $longitude,
+            'live_period' => $live_period,
+            'heading' => $heading,
+            'horizontal_accuracy' => $horizontal_accuracy,
+            'proximity_alert_radius' => $proximity_alert_radius,
+            'reply_to_message_id' => $reply_to_message_id,
+            'reply_markup' => $reply_markup
+        ];
+        return $this->bot('sendLocation', $message);
     }
 
-    public static function sendVenue($chat_id, $latitude, $longitude, $title, $address, $foursquare_id = null, $foursquare_type = null, $google_place_id = null, $google_place_type = null, $reply_markup = null, $reply_to_message_id = null)
+    public function sendVenue($chat_id, $latitude, $longitude, $title, $address, $foursquare_id = null, $foursquare_type = null, $google_place_id = null, $google_place_type = null, $reply_markup = null, $reply_to_message_id = null)
     {
-        return Hook::bot('sendVenue', ['chat_id' => $chat_id, 'latitude' => $latitude, 'longitude' => $longitude, 'title' => $title, 'address' => $address, 'foursquare_id' => $foursquare_id, 'foursquare_type' => $foursquare_type, 'google_place_id' => $google_place_id, 'google_place_type' => $google_place_type, 'reply_to_message_id' => $reply_to_message_id, 'reply_markup' => $reply_markup]);
+        $message = [
+            'chat_id' => $chat_id,
+            'latitude' => $latitude,
+            'longitude' => $longitude,
+            'title' => $title,
+            'address' => $address,
+            'foursquare_id' => $foursquare_id,
+            'foursquare_type' => $foursquare_type,
+            'google_place_id' => $google_place_id,
+            'google_place_type' => $google_place_type,
+            'reply_to_message_id' => $reply_to_message_id,
+            'reply_markup' => $reply_markup
+        ];
+        return $this->bot('sendVenue', $message);
     }
 
-    public static function sendContact($chat_id, $phone_number, $first_name, $last_name = null, $vcard = null, $reply_markup = null, $reply_to_message_id = null)
+    public function sendContact($chat_id, $phone_number, $first_name, $last_name = null, $vcard = null, $reply_markup = null, $reply_to_message_id = null)
     {
-        return Hook::bot('sendContact', ['chat_id' => $chat_id, 'phone_number' => $phone_number, 'first_name' => $first_name, 'last_name' => $last_name, 'vcard' => $vcard, 'reply_to_message_id' => $reply_to_message_id, 'reply_markup' => $reply_markup]);
+        $message = [
+            'chat_id' => $chat_id,
+            'phone_number' => $phone_number,
+            'first_name' => $first_name,
+            'last_name' => $last_name,
+            'vcard' => $vcard,
+            'reply_to_message_id' => $reply_to_message_id,
+            'reply_markup' => $reply_markup
+        ];
+        return $this->bot('sendContact', $message);
     }
 
-    public static function sendPoll($chat_id, $question, array $options, $is_anonymous = null, $type = null, $allows_multiple_answers = false, $correct_option_id = null, $explanation = null, $explanation_parse_mode = null, $explanation_entities = null, $open_period = null, $close_date = null, $is_closed = null, $reply_markup = null, $reply_to_message_id = null)
+    public function sendPoll($chat_id, $question, array $options, $is_anonymous = null, $type = null, $allows_multiple_answers = false, $correct_option_id = null, $explanation = null, $explanation_parse_mode = null, $explanation_entities = null, $open_period = null, $close_date = null, $is_closed = null, $reply_markup = null, $reply_to_message_id = null)
     {
-        return Hook::bot('sendPoll', ['chat_id' => $chat_id, 'question' => $question, 'options' => $options, 'is_anonymous' => $is_anonymous, 'type' => $type, 'allows_multiple_answers' => $allows_multiple_answers, 'correct_option_id' => $correct_option_id, 'explanation' => $explanation, 'explanation_parse_mode' => $explanation_parse_mode, 'explanation_entities' => $explanation_entities, 'open_period' => $open_period, 'close_date' => $close_date, 'is_closed' => $is_closed, 'reply_to_message_id' => $reply_to_message_id, 'reply_markup' => $reply_markup]);
+        $message = [
+            'chat_id' => $chat_id,
+            'question' => $question,
+            'options' => $options,
+            'is_anonymous' => $is_anonymous,
+            'type' => $type,
+            'allows_multiple_answers' => $allows_multiple_answers,
+            'correct_option_id' => $correct_option_id,
+            'explanation' => $explanation,
+            'explanation_parse_mode' => $explanation_parse_mode,
+            'explanation_entities' => $explanation_entities,
+            'open_period' => $open_period,
+            'close_date' => $close_date,
+            'is_closed' => $is_closed,
+            'reply_to_message_id' => $reply_to_message_id,
+            'reply_markup' => $reply_markup
+        ];
+        return $this->bot('sendPoll', $message);
     }
 
-    public static function sendChatAction($chat_id, $action)
+    public function sendChatAction($chat_id, $action)
     {
-        return Hook::bot('sendChatAction', ['chat_id' => $chat_id, 'action' => $action]);
+        $message = [
+            'chat_id' => $chat_id,
+            'action' => $action
+        ];
+        return $this->bot('sendChatAction', $message);
     }
 
-    public static function getFile($file_id)
+    public function getFile($file_id)
     {
-        return Hook::bot('getFile', ['file_id' => $file_id]);
+        $message = [
+            'file_id' => $file_id
+        ];
+        return $this->bot('getFile', $message);
     }
 
-    public static function answerCallbackQuery($callback_query_id, $text = null, $show_alert = null, $url = null, $cache_time = null)
+    public function answerCallbackQuery($callback_query_id, $text = null, $show_alert = null, $url = null, $cache_time = null)
     {
-        return Hook::bot('answerCallbackQuery', ['callback_query_id' => $callback_query_id, 'text' => $text, 'show_alert' => $show_alert, 'url' => $url, 'cache_time' => $cache_time]);
+        $message = [
+            'callback_query_id' => $callback_query_id,
+            'text' => $text,
+            'show_alert' => $show_alert,
+            'url' => $url,
+            'cache_time' => $cache_time
+        ];
+        return $this->bot('answerCallbackQuery', $message);
     }
 }

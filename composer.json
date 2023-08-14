@@ -1,33 +1,44 @@
 {
-    "name": "azimjanovich/sysgram",
-    "description": "SysGram - System PHP telegram bot",
-    "type": "framework",
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "president-tuychiyev",
-            "email": "president7566@gmail.com"
-        }
+    "name": "sysgram/sysgram",
+    "type": "project",
+    "description": "The System Telegram bot Framework.",
+    "keywords": [
+        "php",
+        "framework",
+        "telegram",
+        "bot"
     ],
-    "minimum-stability": "dev",
+    "license": "MIT",
     "require": {
-        "php": ">=8.1",
-        "azimjanovich/sysgram": "^1.5",
-        "cartalyst/sentry": "2.0.*@dev",
+        "php": "^8.2",
+        "nesbot/carbon": "^2.66",
         "usmanhalalit/pixie": "2.*@dev",
-        "vlucas/phpdotenv": "5.4.x-dev",
-        "nesbot/carbon": "^2.64.0",
-        "guzzlehttp/guzzle": ">=7.2.5,<8.3"
+        "vlucas/phpdotenv": "^5.5"
     },
     "autoload": {
         "psr-4": {
-            "Sysgram\\": "app/"
+            "App\\": "app/"
         }
     },
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/azimjanovich/sysgram"
+    "scripts": {
+        "post-root-package-install": [
+            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+        ],
+        "post-install-cmd": [
+            "@copy-env"
+        ],
+        "copy-env": [
+            "cp .env.example .env"
+        ]
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "preferred-install": "dist",
+        "sort-packages": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
         }
-    ]
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }

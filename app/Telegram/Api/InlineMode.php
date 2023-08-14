@@ -17,28 +17,42 @@
  */
 
 
- /**
-  * 
+/**
+ * 
  * @link https://core.telegram.org/bots/api                 Documentation for the function.
  * @see https://github.com/azimjanovich/sysgram/README.md        You can get the full guide to using the index from
  * 
  */
 
-namespace Sysgram\Telegram\Api;
-
-use Sysgram\Telegram\Hooks\Hook;
+namespace App\Telegram\Api;
 
 trait InlineMode
 {
 
-    public static function InlineQuery($id, $from, $query, $offset, $chat_type, $location = null,)
+    public function InlineQuery($id, $from, $query, $offset, $chat_type, $location = null,)
     {
-        return Hook::bot('InlineQuery', [ 'id' => $id, 'from' => $from, 'query' => $query, 'offset' => $offset, 'chat_type' => $chat_type, 'location' => $location ]);
+        $message = [
+            'id' => $id,
+            'from' => $from,
+            'query' => $query,
+            'offset' => $offset,
+            'chat_type' => $chat_type,
+            'location' => $location
+        ];
+        return $this->bot('InlineQuery', $message);
     }
 
-    public static function answerInlineQuery($inline_query_id, $results, $cache_time = null, $is_personal = null, $next_offset = null, $switch_pm_text = null, $switch_pm_parameter = null)
+    public function answerInlineQuery($inline_query_id, $results, $cache_time = null, $is_personal = null, $next_offset = null, $switch_pm_text = null, $switch_pm_parameter = null)
     {
-        return Hook::bot('answerInlineQuery', [ 'inline_query_id' => $inline_query_id, 'results' => $results, 'cache_time' => $cache_time, 'is_personal' =>$is_personal, 'next_offset' => $next_offset, 'switch_pm_text' => $switch_pm_text, 'switch_pm_parameter' => $switch_pm_parameter ]);
+        $message = [
+            'inline_query_id' => $inline_query_id,
+            'results' => $results,
+            'cache_time' => $cache_time,
+            'is_personal' => $is_personal,
+            'next_offset' => $next_offset,
+            'switch_pm_text' => $switch_pm_text,
+            'switch_pm_parameter' => $switch_pm_parameter
+        ];
+        return $this->bot('answerInlineQuery', $message);
     }
-
 }
