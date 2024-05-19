@@ -6,7 +6,9 @@
         "php",
         "framework",
         "telegram",
-        "bot"
+        "bot",
+        "president-tuychiyev",
+        "azimjanovich"
     ],
     "license": "MIT",
     "require": {

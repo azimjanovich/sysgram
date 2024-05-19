@@ -13,7 +13,7 @@ class WebController extends Bot
 
     public function setWebhook()
     {
-        $response = http('https://api.telegram.org/bot' . env('TOKEN') . '/setwebhook?url=' . trim(request()->body->url));
+        $response = http(env('BASE_BOT_URL') . env('TOKEN') . '/setwebhook?url=' . trim(request()->body->url));
         $message = [
             'status' => $response->ok,
             'text' => $response->description

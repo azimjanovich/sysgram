@@ -42,13 +42,23 @@ function request()
 function db()
 {
     try {
-        $connection = new \Pixie\Connection(env('DB_CONNECTION'), [
-            'driver' => env('DB_CONNECTION'),
-            'database' => SYSGRAM_DIR . env('DB_DATABASE')
-        ]);
 
+        $config = array(
+            'driver' => env('DB_CONNECTION'),
+            'host' => env('DB_HOST'),
+            'database' => env('DB_DATABASE'),
+            'username' => env('DB_USERNAME'),
+            'password' => env('DB_PASSWORD'),
+            'charset' => env('DB_CHARSET', 'utf8mb4'),
+            'collation' => 'utf8mb4_unicode_ci',
+            'prefix' => env('DB_PREFIX'),
+        );
+
+        $connection = new \Pixie\Connection('mysql', $config);
         return new \Pixie\QueryBuilder\QueryBuilderHandler($connection);
     } catch (Exception $e) {
+
+        log($e);
         return "Error: " . $e;
     }
 }
@@ -85,4 +95,10 @@ function http(string $url, array $data = [],  $type = null)
     ]);
     $response = curl_exec($ci);
     return json_decode($response);
+}
+
+function log($message,string $status = 'ERROR')
+{
+    $message = date("[ d-m-Y H:i:s ] ") . "|*" . $status . "*| " . $message . "\n";
+    error_log($message, 3, SYSGRAM_DIR . '/storage/logs/sysgram.log');
 }
